@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText email, pass, email2, pass2, confirmPass;
+    EditText email, pass,name, email2,account, pass2, confirmPass;
     RelativeLayout relativeLayout, relativeLayout2;
     LinearLayout mainLinear,img;
     TextView signUp,login,forgetPass;
@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.pass);
         img = (LinearLayout) findViewById(R.id.img);
         email2 = (EditText) findViewById(R.id.email2);
+        name=(EditText) findViewById(R.id.name);
+        account=(EditText) findViewById(R.id.account);
 
         forgetPass = (TextView) findViewById(R.id.forget);
         pass2 = (EditText) findViewById(R.id.pass2);
@@ -143,7 +145,9 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar.make(relativeLayout, "Sign Up Complete", Snackbar.LENGTH_SHORT).show();
                     return;
                 }
+                name.setVisibility(View.VISIBLE);
                 email2.setVisibility(View.VISIBLE);
+                account.setVisibility(View.VISIBLE);
                 pass2.setVisibility(View.VISIBLE);
                 confirmPass.setVisibility(View.VISIBLE);
 
@@ -165,10 +169,12 @@ public class MainActivity extends AppCompatActivity {
                         ObjectAnimator animator7 = ObjectAnimator.ofFloat(login, "rotation", 90);
                         ObjectAnimator animator8 = ObjectAnimator.ofFloat(login, "y", relativeLayout2.getHeight() / 2);
                         ObjectAnimator animator9 = ObjectAnimator.ofFloat(email2, "alpha", 0, 1);
+                        ObjectAnimator animator19 = ObjectAnimator.ofFloat(name, "alpha", 0, 1);
+                        ObjectAnimator animator20 = ObjectAnimator.ofFloat(account, "alpha", 0, 1);
 
                         ObjectAnimator animator10 = ObjectAnimator.ofFloat(confirmPass, "alpha", 0, 1);
                         ObjectAnimator animator11 = ObjectAnimator.ofFloat(pass2, "alpha", 0, 1);
-                        ObjectAnimator animator12 = ObjectAnimator.ofFloat(signUp, "y", login.getY());
+                        ObjectAnimator animator12 = ObjectAnimator.ofFloat(signUp, "y", relativeLayout2.getHeight()/4+mainLinear.getWidth());
 
                         ObjectAnimator animator13 = ObjectAnimator.ofFloat(back, "translationX", img.getX());
                         ObjectAnimator animator14 = ObjectAnimator.ofFloat(signUp, "scaleX", 2);
@@ -180,7 +186,8 @@ public class MainActivity extends AppCompatActivity {
 
                         AnimatorSet set = new AnimatorSet();
                         set.playTogether(animator1, animator2, animator3, animator4, animator5, animator6, animator7,
-                                animator8, animator9, animator10, animator11, animator12, animator13, animator14, animator15, animator16, animator17, animator18);
+                                animator8, animator9, animator10, animator11, animator12, animator13, animator14, animator15, animator16, animator17, animator18,
+                                animator19,animator20);
                         set.setDuration(1500).start();
 
 
@@ -189,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTransitionEnd(Transition transition) {
 
-
+                       // name.setVisibility(View.INVISIBLE);
                         email.setVisibility(View.INVISIBLE);
                         pass.setVisibility(View.INVISIBLE);
                         forgetPass.setVisibility(View.INVISIBLE);
@@ -232,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (params2.weight == 4.25) {
 
-                    Snackbar.make(relativeLayout2, "Login Complete", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(relativeLayout2, "登录成功", Snackbar.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -259,10 +266,13 @@ public class MainActivity extends AppCompatActivity {
                         ObjectAnimator animator7 = ObjectAnimator.ofFloat(signUp, "rotation", 90);
                         ObjectAnimator animator8 = ObjectAnimator.ofFloat(signUp, "y", relativeLayout.getHeight() / 2);
                         ObjectAnimator animator9 = ObjectAnimator.ofFloat(email2, "alpha", 1, 0);
+                        ObjectAnimator animator19 = ObjectAnimator.ofFloat(name, "alpha", 1, 0);
+                        ObjectAnimator animator20 = ObjectAnimator.ofFloat(account, "alpha", 1, 0);
+
 
                         ObjectAnimator animator10 = ObjectAnimator.ofFloat(confirmPass, "alpha", 1, 0);
                         ObjectAnimator animator11 = ObjectAnimator.ofFloat(pass2, "alpha", 1, 0);
-                        ObjectAnimator animator12 = ObjectAnimator.ofFloat(login, "y", signUp.getY());
+                        ObjectAnimator animator12 = ObjectAnimator.ofFloat(login, "y", relativeLayout.getHeight()/5+mainLinear.getWidth());
 
                         ObjectAnimator animator13 = ObjectAnimator.ofFloat(back, "translationX", -img.getX());
                         ObjectAnimator animator14 = ObjectAnimator.ofFloat(login, "scaleX", 2);
@@ -275,7 +285,8 @@ public class MainActivity extends AppCompatActivity {
 
                         AnimatorSet set = new AnimatorSet();
                         set.playTogether(animator1, animator2, animator3, animator4, animator5, animator6, animator7,
-                                animator8, animator9, animator10, animator11, animator12, animator13, animator14, animator15, animator16, animator17,animator18);
+                                animator8, animator9, animator10, animator11, animator12, animator13, animator14, animator15, animator16, animator17,animator18,
+                                animator19,animator20);
                         set.setDuration(1500).start();
 
                     }
@@ -283,6 +294,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTransitionEnd(Transition transition) {
 
+                        account.setVisibility(View.INVISIBLE);
+                        name.setVisibility(View.INVISIBLE);
                         email2.setVisibility(View.INVISIBLE);
                         pass2.setVisibility(View.INVISIBLE);
                         confirmPass.setVisibility(View.INVISIBLE);
