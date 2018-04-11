@@ -27,4 +27,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.android.support:design:26.1.0'
     implementation files('libs/volley.jar')
+    compile 'com.github.LillteZheng:ViewPagerHelper:v0.5'
 }

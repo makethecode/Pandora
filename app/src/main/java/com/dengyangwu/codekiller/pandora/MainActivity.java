@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     ObjectAnimator animator2, animator1;
     String strAccount,strPass,strName,strEmail2,strPhone,strPass2,
             strConfirmPass,strAccount2;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -172,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                             Snackbar.make(relativeLayout, "两次密码不一致！", Snackbar.LENGTH_SHORT).show();
                         }else{
                             Get__Register();
-                            Snackbar.make(relativeLayout, "函数走通！", Snackbar.LENGTH_SHORT).show();
+                            //Snackbar.make(relativeLayout, "函数走通！", Snackbar.LENGTH_SHORT).show();
                         }
                     }
 
@@ -276,11 +278,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                strAccount=account.getText().toString();
+                strPass=pass.getText().toString();
+
                 if (params2.weight == 4.25) {
-
-                    String strAccount=account.getText().toString();
-
-                    Snackbar.make(relativeLayout2, strAccount, Snackbar.LENGTH_SHORT).show();
+                    Intent intent=new Intent(MainActivity.this,MenuActivity.class);
+                    startActivity(intent);
+                    //Get__Login();
+                   // Snackbar.make(relativeLayout2, strAccount, Snackbar.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -399,8 +404,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Snackbar.make(relativeLayout, "请求失败！", Snackbar.LENGTH_SHORT).show();
-                        //Toast.makeText(LoginActivity.this, volleyError.toString(), Toast.LENGTH_LONG).show();
+
                     }
                 });
 
@@ -411,6 +415,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void Get__Login() {
+        String url = "http//47.94.247.145/endangeranimal/user_login.php" + strAccount
+                + "&code=" +strPass;
+        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {//jsonObject为请求返回的Json格式数据
+                        try {
+                            if (jsonObject.get("messag").toString().equals("yes")) {
+                                Snackbar.make(relativeLayout, "注册成功！", Snackbar.LENGTH_SHORT).show();
+                            }else{
+                                Snackbar.make(relativeLayout, "注册失败！", Snackbar.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                });
+
+        //设置请求的Tag标签，可以在全局请求队列中通过Tag标签进行请求的查找
+        request1.setTag("testGet");
+        //将请求加入全局队列中
+        MyApplication.getInstance().addToRequestQueue(request1);
+
+    }
 
     private int inDp(int dp) {
 
