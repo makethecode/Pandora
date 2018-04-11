@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     implementation files('libs/volley.jar')
     compile 'com.github.LillteZheng:ViewPagerHelper:v0.5'
+    implementation files('libs/aip-java-sdk-4.2.0.jar')
 }
