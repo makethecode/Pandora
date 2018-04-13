@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -282,10 +283,23 @@ public class MainActivity extends AppCompatActivity {
                 strPass=pass.getText().toString();
 
                 if (params2.weight == 4.25) {
-                    Intent intent=new Intent(MainActivity.this,MenuActivity.class);
-                    startActivity(intent);
+                    SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
+                    String account =pref.getString("account","");
+                    String pass=pref.getString("password","");
+                    if(!strPass.equals("")){
+                        if(strPass.equals(pass)&&strAccount.equals(account)){
+                            Intent intent=new Intent(MainActivity.this,MenuActivity.class);
+                            startActivity(intent);
+                        }else {
+                            Snackbar.make(relativeLayout2, "密码错误！", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Snackbar.make(relativeLayout2, "账号密码不能为空！", Snackbar.LENGTH_SHORT).show();
+                    }
+
+
                     //Get__Login();
-                   // Snackbar.make(relativeLayout2, strAccount, Snackbar.LENGTH_SHORT).show();
+                   //
                     return;
                 }
 
@@ -382,16 +396,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void Get__Register() {
-        String url = "http://47.94.247.145/endangeranimal/register/register.php?name=" + strName
+        String url = "http://47.94.247.145/endangeranimal/user_register.php?name=" + strName
                 + "&email=" +strEmail2
                 +"&account="+strAccount2+"&password="+strPass2+"&phone="+strPhone;
+     SharedPreferences pref=MainActivity.this.getSharedPreferences("data",MODE_PRIVATE);
+     SharedPreferences.Editor editor=pref.edit();
+     editor.putString("account",strAccount2);
+     editor.putString("password",strPass2);
+     editor.commit();
+     account.setText(strAccount2);
+     pass.setText(strPass2);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {//jsonObject为请求返回的Json格式数据
                         try {
+                            Snackbar.make(relativeLayout, "注册成功！", Snackbar.LENGTH_SHORT).show();
                             if (jsonObject.get("messag").toString().equals("yes")) {
-                                Snackbar.make(relativeLayout, "注册成功！", Snackbar.LENGTH_SHORT).show();
+
                             }else{
                                 Snackbar.make(relativeLayout, "注册失败！", Snackbar.LENGTH_SHORT).show();
                             }
@@ -418,6 +440,7 @@ public class MainActivity extends AppCompatActivity {
     private void Get__Login() {
         String url = "http//47.94.247.145/endangeranimal/user_login.php" + strAccount
                 + "&code=" +strPass;
+
         JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
