@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_select1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#7adfb8"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:gravity="center_vertical"
+        android:padding="10dip"
+        android:background="#7adfb8"
+        >
+
+        <ImageView
+            android:id="@+id/flea_im_exit"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/title_exit" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="23sp"
+            android:text="              跳蚤市场"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dip"
+            android:background="@drawable/radius_drawable_bg"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+            <LinearLayout
+                android:id="@+id/input_layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/type" />
+
+                <Spinner
+                    android:id="@+id/flea_spinner_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dip"
+                    android:background="#00000000"
+                    android:hint="请选择分类"
+                    android:padding="5dip"
+                    android:textSize="16sp" >
+                </Spinner>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="5dip"
+                android:background="#eeeeee" />
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/helpme_demand" />
+
+                <EditText
+                    android:id="@+id/flea_demand"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10dip"
+                    android:background="#00000000"
+                    android:hint="请输入详细描述（产品成色、新旧程度、买入价钱等）"
+                    android:padding="5dip"
+                    android:textSize="16sp"
+                    android:gravity="top|left"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="5dip"
+                android:background="#eeeeee" />
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/helpme_price" />
+
+                <EditText
+                    android:id="@+id/flea_price"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:background="#00000000"
+                    android:hint="请输入想要卖的价钱"
+                    android:padding="5dip"
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:text="¥"
+                    android:textSize="25sp"
+                    android:textColor="#FF0000"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/cardview_journal_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dip"
+            android:background="@drawable/radius_drawable_bg"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/flea_rec_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right|end">
+            <ImageView
+                android:id="@+id/insert"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/ic_launcher"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/flea_send"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_layout"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="0dip"
+            android:background="@drawable/textview_btn"
+            android:gravity="center"
+            android:paddingBottom="2dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="2dip"
+            android:text="发布信息"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+</LinearLayout>
+    </LinearLayout>
+</LinearLayout>

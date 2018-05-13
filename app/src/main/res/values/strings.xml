@@ -6,4 +6,28 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="news_one_title">成都大熊猫繁育研究基地募捐</string>
+    <string name="news_one_desc"> 这里的熊猫可不像动物园那些关在笼子里的，它们都活泼好动，运气好时还能看到亚成年的大熊猫在户外打闹嬉戏。幼年的大熊猫就更可爱了，几只在婴儿床上滚来滚去，有些还会尝试着爬出来。成都大熊猫繁育研究基地感谢您的爱心捐赠
+</string>
+
+    <string name="news_two_title">济南跑马岭野生动物世界</string>
+    <string name="news_two_desc">济南跑马岭野生动物世界位于被誉为“省城后花园”的济南南部山区之巅。济南跑马岭野生动物世界是建在山顶上“天然氧吧”里的野生动物园，为国家森林公园首批国家4A景区。感谢您的募捐</string>
+
+    <string name="news_three_title">杭州动物园感</string>
+    <string name="news_three_desc">杭州动物园成立于1958年，原址位于钱王祠，1975年10月迁址虎跑路40号，园区占地20公顷。动物园南邻虎跑梦泉，六和塔，北接少儿公园（满陇桂雨），与玉皇飞云遥遥相对，是一座集野生动物保护、科研、科普、教育和游览于一体的山林式动物园，园内环境幽静、树木成荫。杭州动物园感谢您的募捐</string>
+    <string name="news_four_title">北京动物园</string>
+    <string name="news_four_desc">北京动物园位于北京市西城区西直门外大街，东邻北京展览馆和莫斯科餐厅，占地面积约86公顷，水面8.6公顷。始建于清光绪三十二年（1906年），是中国开放最早、饲养展出动物种类最多的动物园。饲养展览动物500余种5000多只；感谢您的募捐
+
+    </string>
+    <string name="news_five_title">厦门海沧野生动物园</string>
+    <string name="news_five_desc">厦门中非世野野生动物园有限公司在厦门市翔安区新建以动物为主题的综合性景区，聘请以哈里森、伯纳德为主的六个国家世界知名设计师团队为新园进行规划设计，打造国内一流的野生动物园。该项目占地面积3000亩，建有日间动物园、夜间动物园，飞禽公园和昆虫蝴蝶馆四个园区。感谢您的募捐
+</string>
+
+    <string name="news_six_title">香港荔园动物园</string>
+    <string name="news_six_desc">香港荔园动物园，位于原 荔园内，占地约10万平方尺的动物园。曾养有很多不同种类的野生动物，分别有熊狸、猕猴、山羊、老虎、扬子鳄、水鸟、狮子、黑豹、秃鹫、绿孔雀、美洲狮、后期运来的双峰骆驼。感谢您的募捐
+</string>
+
 </resources>

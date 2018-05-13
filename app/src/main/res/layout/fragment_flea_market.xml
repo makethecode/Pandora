@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7adfb8"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="left|center"
+
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳蚤市场"
+            android:textSize="23sp"/>
+        <ImageView
+            android:layout_marginLeft="8dp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/flea_search"/>
+
+        <EditText
+            android:id="@+id/flea_search"
+            android:layout_width="160dp"
+            android:layout_height="match_parent">
+
+        </EditText>
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/im_write"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/write"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="1dip"
+        android:layout_marginTop="1dip"
+        android:background="#eeeeee" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/flea_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/flea_rec_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
+

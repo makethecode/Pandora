@@ -22,9 +22,16 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    repositories {
+        flatDir {
+            dirs 'C:\\Users\\DELL\\Desktop\\work\\Pandora\\app\\libs'
+        }
+        maven { url "https://jitpack.io" }
+    }
 }
 
 dependencies {
+    implementation 'com.android.support:support-v4:26.1.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -32,8 +39,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation files('libs/volley.jar')
     compile 'com.github.LillteZheng:ViewPagerHelper:v0.5'
     implementation files('libs/aip-java-sdk-4.2.0.jar')
     implementation files('libs/BaiduLBS_Android.jar')
+    compile name: 'SMSSDK-2.1.4', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.4', ext: 'aar'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okio:okio:1.5.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation files('libs/okhttputils-master.jar')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.dengyangwu.codekiller.pandora.MenuActivity"
-    tools:showIn="@layout/app_bar_menu">
+    tools:showIn="@layout/app_bar_menu"
+    android:background="#C1FFC1">
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -22,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="动物名"
+            android:textColor="#000"
             android:textSize="20dp"
             android:gravity="center"/>
 
@@ -39,6 +41,7 @@
             android:layout_height="wrap_content"
             android:text="发现省份城市"
             android:textSize="20dp"
+            android:textColor="#000"
             android:gravity="center"/>
 
     </LinearLayout>

@@ -115,15 +115,21 @@
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.android.support:support-media-compat-26.1.0" level="project" />
+    <orderEntry type="library" name="SMSSDKGUI-2.1.4:@aar" level="project" />
+    <orderEntry type="library" name="com.squareup.okhttp3:okhttp:3.2.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:recyclerview-v7-26.1.0" level="project" />
+    <orderEntry type="library" name="__local_aars__:C.\Users\DELL\Desktop\work\Pandora\app\libs\MobCommons-2017.0321.1624.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="__local_aars__:C.\Users\DELL\Desktop\work\Pandora\app\libs\MobTools-2017.0321.1624.jar:unspecified@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="android.arch.lifecycle:common:1.0.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test.espresso:espresso-core-3.0.1" level="project" />
     <orderEntry type="library" name="com.android.support:support-fragment-26.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="javax.inject:javax.inject:1@jar" level="project" />
+    <orderEntry type="library" name="SMSSDK-2.1.4:@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="com.squareup:javawriter:2.1.1@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-vector-drawable-26.1.0" level="project" />
     <orderEntry type="library" name="android.arch.lifecycle:runtime-1.0.0" level="project" />
+    <orderEntry type="library" name="com.squareup.okhttp:okhttp:2.4.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-26.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-annotations:26.1.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support.constraint:constraint-layout-solver:1.0.2@jar" level="project" />
@@ -132,6 +138,7 @@
     <orderEntry type="library" name="com.android.support:support-core-ui-26.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test:runner-1.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test:rules-1.0.1" level="project" />
+    <orderEntry type="library" name="com.nostra13.universalimageloader:universal-image-loader:1.9.5@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="com.google.code.findbugs:jsr305:2.0.1@jar" level="project" />
     <orderEntry type="library" name="com.github.LillteZheng:ViewPagerHelper-v0.5" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test.espresso:espresso-idling-resource-3.0.1" level="project" />
@@ -144,12 +151,16 @@
     <orderEntry type="library" name="__local_aars__:C.\Users\DELL\Desktop\work\Pandora\app\libs\volley.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="__local_aars__:C.\Users\DELL\Desktop\work\Pandora\app\libs\log4j-1.2.17.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-26.1.0" level="project" />
+    <orderEntry type="library" name="com.squareup.okio:okio:1.6.0@jar" level="project" />
     <orderEntry type="library" name="__local_aars__:C.\Users\DELL\Desktop\work\Pandora\app\libs\json-20160810.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="__local_aars__:C.\Users\DELL\Desktop\work\Pandora\app\libs\aip-java-sdk-4.2.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="net.sf.kxml:kxml2:2.3.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:animated-vector-drawable-26.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:design-26.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:transition-26.1.0" level="project" />
+    <orderEntry type="library" name="__local_aars__:C.\Users\DELL\Desktop\work\Pandora\app\libs\okhttputils-master.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="com.android.support:cardview-v7-26.1.0" level="project" />
+    <orderEntry type="library" name="com.github.bumptech.glide:glide:3.7.0@jar" level="project" />
     <orderEntry type="library" name="android-android-26" level="project" />
   </component>
 </module>

@@ -52,6 +52,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.dengyangwu.codekiller.pandora.entity.MyApplication;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,6 +112,7 @@ public class MenuActivity extends AppCompatActivity
         listener();
         startLocate();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton news = (FloatingActionButton) findViewById(R.id.news);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +121,13 @@ public class MenuActivity extends AppCompatActivity
 
             }
         });
-
+        news.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Intent i=new Intent(MenuActivity.this,CollectionActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
     public  void init(){
@@ -128,7 +136,6 @@ public class MenuActivity extends AppCompatActivity
         classify=new AipImageClassify(APP_ID,API_KEY,SECRET_KEY);
         mFilePath = Environment.getExternalStorageDirectory().getPath();// 获取SD卡路径
         mFilePath = mFilePath + "/" + "tempdf.png";// 指定路径
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -189,6 +196,7 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 

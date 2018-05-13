@@ -1,483 +1,404 @@
 package com.dengyangwu.codekiller.pandora;
 
-
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.ChangeBounds;
-import android.transition.Transition;
-import android.transition.TransitionManager;
-import android.util.DisplayMetrics;
+import android.os.Looper;
+import android.os.SystemClock;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.dengyangwu.codekiller.pandora.entity.MyApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+import cn.smssdk.gui.RegisterPage;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Context context;
-    EditText account, pass,name, email2,phone,account2, pass2, confirmPass;
-    RelativeLayout relativeLayout, relativeLayout2;
-    LinearLayout mainLinear,img;
-    TextView signUp,login,forgetPass;
-    ImageView logo,back;
-    LinearLayout.LayoutParams params, params2;
-    FrameLayout.LayoutParams params3;
-    FrameLayout mainFrame;
-    ObjectAnimator animator2, animator1;
-    String strAccount,strPass,strName,strEmail2,strPhone,strPass2,
-            strConfirmPass,strAccount2;
-
+    int LOGIN= 0;
+    private EditText mEdit_name,mEdit_psd;
+    private Button  btn_visit;
+    private TextView mBtnLogin,mBtnRegister;
+    private View progress;
+    private View mInputLayout;
+    private float mWidth,mHeight;
+    private LinearLayout mName,mPsw;
+    private ImageView mExit;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = getApplicationContext();
+        initView();
 
-        params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
-        params2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
-        params3 = new FrameLayout.LayoutParams(inDp(50), inDp(50));
+        SMSSDK.initSDK(this,"1cb843550f6ff","124e461bda4381b80b234f1ecdf743d2");
+       /* edit_idt= (EditText) findViewById(R.id.edit_identify);
+        edit_psd= (EditText) findViewById(R.id.edit_password);
+        btn_login= (Button) findViewById(R.id.btn_login);
+        btn_register= (Button) findViewById(R.id.btn_register);
+        btn_visit= (Button) findViewById(R.id.btn_visitlogin);
+*/
 
-        signUp = (TextView) findViewById(R.id.signUp);
-        login = (TextView) findViewById(R.id.login);
-        account = (EditText) findViewById(R.id.account);
-        pass = (EditText) findViewById(R.id.pass);
+/*        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //  img = (LinearLayout) findViewById(R.id.img);
-        email2 = (EditText) findViewById(R.id.email2);
-        phone=findViewById(R.id.phone);
-        name=(EditText) findViewById(R.id.name);
-        account2=(EditText) findViewById(R.id.account2);
 
-        forgetPass = (TextView) findViewById(R.id.forget);
-        pass2 = (EditText) findViewById(R.id.pass2);
-        mainFrame = (FrameLayout) findViewById(R.id.mainFrame);
-        confirmPass = (EditText) findViewById(R.id.pass3);
-        back = (ImageView) findViewById(R.id.backImg);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            int result = login();
+                            //login()为向php服务器提交请求的函数，返回数据类型为in18463116339t
+                            if (result == 1) {
+                                Looper.prepare();
+                                Toast.makeText(MainActivity.this, "登陆成功！", Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(MainActivity.this,MenuActivity.class);
+                                startActivity(intent);
+                                Looper.loop();
+                            } else if (result == -2) {
+                                Looper.prepare();
+                                Toast.makeText(MainActivity.this, "密码错误！", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                            } else if (result == -1) {
+                                Looper.prepare();
+                                Toast.makeText(MainActivity.this, "不存在该用户！", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                            }
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
 
-        relativeLayout = (RelativeLayout) findViewById(R.id.relative);
-        relativeLayout2 = (RelativeLayout) findViewById(R.id.relative2);
-        mainLinear = (LinearLayout) findViewById(R.id.mainLinear);
+                }).start();
+            }
+        });
 
-        logo = new ImageView(this);
-        logo.setImageResource(R.drawable.logo);
-        logo.setLayoutParams(params3);
+        btn_visit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,MenuActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        relativeLayout.post(new Runnable() {
+
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final RegisterPage registerPage=new RegisterPage();
+                registerPage.setRegisterCallback(new EventHandler(){
+                     public void afterEvent(int event,int result,Object data)
+                    {
+
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+
+                            @SuppressWarnings("unchecked")
+                            Intent intent1=new Intent(MainActivity.this,RegisterActivity.class);
+                            startActivity(intent1);
+                            HashMap<String, Object> phoneMap = (HashMap<String, Object>) data;
+                            String country = (String) phoneMap.get("country");
+                            String phone = (String) phoneMap.get("phone");
+                            //Toast.makeText(getApplicationContext(), phone, Toast.LENGTH_SHORT).show();
+                            SharedPreferences preferences=getSharedPreferences("user",MODE_PRIVATE);
+                            SharedPreferences.Editor editor=preferences.edit();
+                            editor.putString("phone",phone);
+                            editor.commit();
+                        }
+                    }
+                });
+                registerPage.show(MainActivity.this);
+            }
+        });*/
+    }
+
+    private void initView()
+    {
+        mBtnLogin= (TextView) findViewById(R.id.main_btn_login);
+        progress=findViewById(R.id.layout_progress);
+        mInputLayout=findViewById(R.id.input_layout);
+        mName= (LinearLayout) findViewById(R.id.input_layout_name);
+        mPsw= (LinearLayout) findViewById(R.id.input_layout_psw);
+        mEdit_name= (EditText) findViewById(R.id.login_name);
+        mEdit_psd= (EditText) findViewById(R.id.login_psw);
+        mBtnRegister= (TextView) findViewById(R.id.tv_register);
+        mExit= (ImageView) findViewById(R.id.main_exit);
+
+        mBtnLogin.setOnClickListener(this);
+        mExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        mBtnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final RegisterPage registerPage=new RegisterPage();
+                registerPage.setRegisterCallback(new EventHandler(){
+                    public void afterEvent(int event,int result,Object data)
+                    {
+
+                        if (result == SMSSDK.RESULT_COMPLETE) {
+
+                            @SuppressWarnings("unchecked")
+                            Intent intent1=new Intent(MainActivity.this,RegisterActivity.class);
+                            startActivity(intent1);
+                            HashMap<String, Object> phoneMap = (HashMap<String, Object>) data;
+                            String country = (String) phoneMap.get("country");
+                            String phone = (String) phoneMap.get("phone");
+                            SharedPreferences preferences=getSharedPreferences("user",MODE_PRIVATE);
+                            SharedPreferences.Editor editor=preferences.edit();
+                            editor.putString("phone",phone);
+                            editor.commit();
+                        }
+                    }
+                });
+                registerPage.show(MainActivity.this);
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        new Thread(new Runnable() {
             @Override
             public void run() {
-
-                logo.setX((relativeLayout2.getRight() / 2));
-                logo.setY(inDp(50));
-                mainFrame.addView(logo);
-            }
-        });
-
-        params.weight = (float) 0.75;
-        params2.weight = (float) 4.25;
-
-        mainLinear.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-
-                Rect r = new Rect();
-                mainLinear.getWindowVisibleDisplayFrame(r);
-                int screenHeight = mainFrame.getRootView().getHeight();
-
-
-                int keypadHeight = screenHeight - r.bottom;
-
-
-                if (keypadHeight > screenHeight * 0.15) {
-                    // keyboard is opened
-                    if (params.weight == 4.25) {
-
-                        animator1 = ObjectAnimator.ofFloat(back, "scaleX", (float) 1.95);
-                        animator2 = ObjectAnimator.ofFloat(back, "scaleY", (float) 1.95);
-                        AnimatorSet set = new AnimatorSet();
-                        set.playTogether(animator1, animator2);
-                        set.setDuration(1000);
-                        set.start();
-
-                    } else {
-
-                        animator1 = ObjectAnimator.ofFloat(back, "scaleX", (float) 1.75);
-                        animator2 = ObjectAnimator.ofFloat(back, "scaleY", (float) 1.75);
-                        AnimatorSet set = new AnimatorSet();
-                        set.playTogether(animator1, animator2);
-                        set.setDuration(500);
-                        set.start();
-                    }
-                } else {
-                    // keyboard is closed
-                    animator1 = ObjectAnimator.ofFloat(back, "scaleX", 3);
-                    animator2 = ObjectAnimator.ofFloat(back, "scaleY", 3);
-                    AnimatorSet set = new AnimatorSet();
-                    set.playTogether(animator1, animator2);
-                    set.setDuration(500);
-                    set.start();
+                try {
+                    int result = login();
+                    LOGIN=result;
+                    //login()为向php服务器提交请求的函数，返回数据类型为in18463116339t
+                    Looper.prepare();
+                    Looper.loop();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
                 }
             }
-        });
+
+        }).start();
+
+        if (LOGIN == 1) {
+            String mobile=mEdit_name.getText().toString();
+            SharedPreferences preferences=getSharedPreferences("mobile",MODE_PRIVATE);
+            SharedPreferences.Editor editor=preferences.edit();
+            editor.putString("mobile",mobile);
+            editor.commit();
+
+            //计算出控件的高与款
+            mWidth=mBtnLogin.getMeasuredWidth();
+            mHeight=mBtnLogin.getMeasuredHeight();
+            //隐藏输入框
+            mName.setVisibility(View.INVISIBLE);
+            mPsw.setVisibility(View.INVISIBLE);
+            inputAnimator(mInputLayout, mWidth, mHeight);
+
+            ToastEmail.getToastEmail().ToastShow(MainActivity.this,null,"登陆成功！");
+
+        } else if (LOGIN == -2) {
+            ToastEmail.getToastEmail().ToastShow(MainActivity.this,null,"密码错误！");
+        } else if (LOGIN == -1) {
+            ToastEmail.getToastEmail().ToastShow(MainActivity.this,null,"不存在该用户！");
+        }
+/*
+        DBHelper dbHelper=new DBHelper(MainActivity.this);
+        dbHelper.clear("classes");
+
+        String str_edit_name=mEdit_name.getText().toString();
+        String str_edit_psd=mEdit_psd.getText().toString();
+        if(str_edit_name.equals("")&&str_edit_psd.equals(""))
+        {
+            String mobile=mEdit_name.getText().toString();
+            SharedPreferences preferences=getSharedPreferences("mobile",MODE_PRIVATE);
+            SharedPreferences.Editor editor=preferences.edit();
+            editor.putString("mobile",mobile);
+            editor.commit();
+
+            //计算出控件的高与款
+            mWidth=mBtnLogin.getMeasuredWidth();
+            mHeight=mBtnLogin.getMeasuredHeight();
+            //隐藏输入框
+            mName.setVisibility(View.INVISIBLE);
+            mPsw.setVisibility(View.INVISIBLE);
+            inputAnimator(mInputLayout, mWidth, mHeight);
+
+            ToastEmail.getToastEmail().ToastShow(MainActivity.this,null,"登陆成功！");
+        }
+*/
 
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+    }
+    private void restart(){
+
+    }
+    /**
+     * 输入框的动画效果
+     *
+     * @param view
+     *      控件
+     * @param w
+     *      宽
+     * @param h
+     *      高
+     */
+    private void inputAnimator(final View view,float w,float h){
+        AnimatorSet set=new AnimatorSet();
+
+        final ValueAnimator animator=ValueAnimator.ofFloat(0,w);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onClick(View view) {
-
-                strName=name.getText().toString();
-                strEmail2=email2.getText().toString();
-                strPhone=phone.getText().toString();
-                strAccount2=account2.getText().toString();
-                strPass2=pass2.getText().toString();
-                strConfirmPass=confirmPass.getText().toString();
-
-                if (params.weight == 4.25) {
-
-                    if(strName.equals("")||strEmail2.equals("")||strPhone.equals("")||strAccount2.equals("")||strPass2.equals("")||strConfirmPass.equals("")){
-                        Snackbar.make(relativeLayout, "信息填写不完整", Snackbar.LENGTH_SHORT).show();
-                    }else{
-                        if(!strPass2.equals(strConfirmPass)){
-                            Snackbar.make(relativeLayout, "两次密码不一致！", Snackbar.LENGTH_SHORT).show();
-                        }else{
-                            Get__Register();
-                            //Snackbar.make(relativeLayout, "函数走通！", Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-
-
-                    //Snackbar.make(relativeLayout, "Sign Up Complete", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-                name.setVisibility(View.VISIBLE);
-                email2.setVisibility(View.VISIBLE);
-                phone.setVisibility(View.VISIBLE);
-                account2.setVisibility(View.VISIBLE);
-                pass2.setVisibility(View.VISIBLE);
-                confirmPass.setVisibility(View.VISIBLE);
-
-                final ChangeBounds bounds = new ChangeBounds();
-                bounds.setDuration(1500);
-                bounds.addListener(new Transition.TransitionListener() {
-                    @Override
-                    public void onTransitionStart(Transition transition) {
-
-
-                        ObjectAnimator animator1 = ObjectAnimator.ofFloat(signUp, "translationX", mainLinear.getWidth() / 2 - relativeLayout2.getWidth() / 2 - signUp.getWidth() / 2);
-                        //ObjectAnimator animator2 = ObjectAnimator.ofFloat(img, "translationX", -relativeLayout2.getX());
-                        ObjectAnimator animator3 = ObjectAnimator.ofFloat(signUp, "rotation", 0);
-
-                        ObjectAnimator animator4 = ObjectAnimator.ofFloat(account, "alpha", 1, 0);
-                        ObjectAnimator animator5 = ObjectAnimator.ofFloat(pass, "alpha", 1, 0);
-                        ObjectAnimator animator6 = ObjectAnimator.ofFloat(forgetPass, "alpha", 1, 0);
-
-                        ObjectAnimator animator7 = ObjectAnimator.ofFloat(login, "rotation", 90);
-                        ObjectAnimator animator8 = ObjectAnimator.ofFloat(login, "y", relativeLayout2.getHeight() / 2);
-                        ObjectAnimator animator9 = ObjectAnimator.ofFloat(email2, "alpha", 0, 1);
-                        ObjectAnimator animator21 = ObjectAnimator.ofFloat(phone, "alpha", 0, 1);
-                        ObjectAnimator animator19 = ObjectAnimator.ofFloat(name, "alpha", 0, 1);
-                        ObjectAnimator animator20 = ObjectAnimator.ofFloat(account2, "alpha", 0, 1);
-
-                        ObjectAnimator animator10 = ObjectAnimator.ofFloat(confirmPass, "alpha", 0, 1);
-                        ObjectAnimator animator11 = ObjectAnimator.ofFloat(pass2, "alpha", 0, 1);
-                        ObjectAnimator animator12 = ObjectAnimator.ofFloat(signUp, "y", relativeLayout2.getHeight()/4+mainLinear.getWidth());
-
-                        //ObjectAnimator animator13 = ObjectAnimator.ofFloat(back, "translationX", img.getX());
-                        ObjectAnimator animator14 = ObjectAnimator.ofFloat(signUp, "scaleX", 2);
-                        ObjectAnimator animator15 = ObjectAnimator.ofFloat(signUp, "scaleY", 2);
-
-                        ObjectAnimator animator16 = ObjectAnimator.ofFloat(login, "scaleX", 1);
-                        ObjectAnimator animator17 = ObjectAnimator.ofFloat(login, "scaleY", 1);
-                        ObjectAnimator animator18 = ObjectAnimator.ofFloat(logo, "x", relativeLayout2.getRight() / 2 - relativeLayout.getRight());
-
-                        AnimatorSet set = new AnimatorSet();
-                        set.playTogether(animator1, animator2, animator3, animator4, animator5, animator6, animator7,
-                                animator8, animator9, animator10, animator11, animator12,  animator14, animator15, animator16, animator17, animator18,
-                                animator19,animator20,animator21);
-                        set.setDuration(1500).start();
-
-
-                    }
-
-                    @Override
-                    public void onTransitionEnd(Transition transition) {
-
-                       // name.setVisibility(View.INVISIBLE);
-                        account.setVisibility(View.INVISIBLE);
-                        pass.setVisibility(View.INVISIBLE);
-                        forgetPass.setVisibility(View.INVISIBLE);
-
-                    }
-
-                    @Override
-                    public void onTransitionCancel(Transition transition) {
-
-                    }
-
-                    @Override
-                    public void onTransitionPause(Transition transition) {
-
-                    }
-
-                    @Override
-                    public void onTransitionResume(Transition transition) {
-
-
-                    }
-                });
-
-                TransitionManager.beginDelayedTransition(mainLinear, bounds);
-
-                params.weight = (float) 4.25;
-                params2.weight = (float) 0.75;
-
-
-                relativeLayout.setLayoutParams(params);
-                relativeLayout2.setLayoutParams(params2);
-
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float value= (float) animator.getAnimatedValue();
+                ViewGroup.MarginLayoutParams params= (ViewGroup.MarginLayoutParams)
+                        view.getLayoutParams();
+                params.leftMargin= (int) value;
+                params.rightMargin= (int) value;
+                view.setLayoutParams(params);
             }
         });
-
-
-
-
-        login.setOnClickListener(new View.OnClickListener() {
+        ObjectAnimator animator2=ObjectAnimator.ofFloat(mInputLayout,
+                "scaleX",1f,0.5f);
+        set.setDuration(1000);
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        set.playTogether(animator,animator2);
+        set.start();
+        set.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onClick(View view) {
+            public void onAnimationStart(Animator animator) {
 
-                strAccount=account.getText().toString();
-                strPass=pass.getText().toString();
+            }
 
-                if (params2.weight == 4.25) {
-                    SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-                    String account =pref.getString("account","");
-                    String pass=pref.getString("password","");
-                    if(!strPass.equals("")){
-                        if(strPass.equals(pass)&&strAccount.equals(account)){
-                            Intent intent=new Intent(MainActivity.this,MenuActivity.class);
-                            startActivity(intent);
-                        }else {
-                            Snackbar.make(relativeLayout2, "密码错误！", Snackbar.LENGTH_SHORT).show();
-                        }
-                    }else {
-                        Snackbar.make(relativeLayout2, "账号密码不能为空！", Snackbar.LENGTH_SHORT).show();
-                    }
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                /**
+                 * 动画结束后，先显示加载的动画，然后再隐藏输入框
+                 */
+                progress.setVisibility(View.VISIBLE);
+                progressAnimator(progress);
+                mInputLayout.setVisibility(View.INVISIBLE);
+
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {
 
 
-                    //Get__Login();
-                   //
-                    return;
-                }
+            }
 
-                account.setVisibility(View.VISIBLE);
-                pass.setVisibility(View.VISIBLE);
-                forgetPass.setVisibility(View.VISIBLE);
-
-
-                final ChangeBounds bounds = new ChangeBounds();
-                bounds.setDuration(1500);
-                bounds.addListener(new Transition.TransitionListener() {
-                    @Override
-                    public void onTransitionStart(Transition transition) {
-
-
-                        ObjectAnimator animator1 = ObjectAnimator.ofFloat(login, "translationX", mainLinear.getWidth() / 2 - relativeLayout.getWidth() / 2 - login.getWidth() / 2);
-                        //ObjectAnimator animator2 = ObjectAnimator.ofFloat(img, "translationX", (relativeLayout.getX()));
-                        ObjectAnimator animator3 = ObjectAnimator.ofFloat(login, "rotation", 0);
-
-                        ObjectAnimator animator4 = ObjectAnimator.ofFloat(account, "alpha", 0, 1);
-                        ObjectAnimator animator5 = ObjectAnimator.ofFloat(pass, "alpha", 0, 1);
-                        ObjectAnimator animator6 = ObjectAnimator.ofFloat(forgetPass, "alpha", 0, 1);
-
-                        ObjectAnimator animator7 = ObjectAnimator.ofFloat(signUp, "rotation", 90);
-                        ObjectAnimator animator8 = ObjectAnimator.ofFloat(signUp, "y", relativeLayout.getHeight() / 2);
-                        ObjectAnimator animator9 = ObjectAnimator.ofFloat(email2, "alpha", 1, 0);
-
-                        ObjectAnimator animator21 = ObjectAnimator.ofFloat(phone, "alpha", 1, 0);
-                        ObjectAnimator animator19 = ObjectAnimator.ofFloat(name, "alpha", 1, 0);
-                        ObjectAnimator animator20 = ObjectAnimator.ofFloat(account2, "alpha", 1, 0);
-
-
-                        ObjectAnimator animator10 = ObjectAnimator.ofFloat(confirmPass, "alpha", 1, 0);
-                        ObjectAnimator animator11 = ObjectAnimator.ofFloat(pass2, "alpha", 1, 0);
-                        ObjectAnimator animator12 = ObjectAnimator.ofFloat(login, "y", relativeLayout.getHeight()/5+mainLinear.getWidth());
-
-                        //ObjectAnimator animator13 = ObjectAnimator.ofFloat(back, "translationX", -img.getX());
-                        ObjectAnimator animator14 = ObjectAnimator.ofFloat(login, "scaleX", 2);
-                        ObjectAnimator animator15 = ObjectAnimator.ofFloat(login, "scaleY", 2);
-
-                        ObjectAnimator animator16 = ObjectAnimator.ofFloat(signUp, "scaleX", 1);
-                        ObjectAnimator animator17 = ObjectAnimator.ofFloat(signUp, "scaleY", 1);
-                        ObjectAnimator animator18 = ObjectAnimator.ofFloat(logo, "x", logo.getX()+relativeLayout2.getWidth());
-
-
-                        AnimatorSet set = new AnimatorSet();
-                        set.playTogether(animator1, animator2, animator3, animator4, animator5, animator6, animator7,
-                                animator8, animator9, animator10, animator11, animator12,  animator14, animator15, animator16, animator17,animator18,
-                                animator19,animator20,animator21);
-                        set.setDuration(1500).start();
-
-                    }
-
-                    @Override
-                    public void onTransitionEnd(Transition transition) {
-
-                        account2.setVisibility(View.INVISIBLE);
-                        name.setVisibility(View.INVISIBLE);
-                        email2.setVisibility(View.INVISIBLE);
-                        phone.setVisibility(View.INVISIBLE);
-                        pass2.setVisibility(View.INVISIBLE);
-                        confirmPass.setVisibility(View.INVISIBLE);
-
-                    }
-
-                    @Override
-                    public void onTransitionCancel(Transition transition) {
-
-                    }
-
-                    @Override
-                    public void onTransitionPause(Transition transition) {
-
-                    }
-
-                    @Override
-                    public void onTransitionResume(Transition transition) {
-
-                    }
-                });
-
-                TransitionManager.beginDelayedTransition(mainLinear, bounds);
-
-                params.weight = (float) 0.75;
-                params2.weight = (float) 4.25;
-
-                relativeLayout.setLayoutParams(params);
-                relativeLayout2.setLayoutParams(params2);
-
+            @Override
+            public void onAnimationRepeat(Animator animator) {
 
             }
         });
     }
 
+    /**
+     * 出现进度动画
+     *
+     * @param view
+     */
+    private void progressAnimator(final View view ){
+        PropertyValuesHolder animator=PropertyValuesHolder.ofFloat("scaleX",
+                0.5f,1f);
+        PropertyValuesHolder animator2=PropertyValuesHolder.ofFloat("scaleY",
+                0.5f,1f);
+        final ObjectAnimator animator3=ObjectAnimator.ofPropertyValuesHolder(view,
+                animator,animator2);
+        animator3.setDuration(3000);
+        animator3.setInterpolator(new JellyInterpolator());
+        animator3.start();
+        animator3.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
 
-    private void Get__Register() {
-        String url = "http://47.94.247.145/endangeranimal/user_register.php?name=" + strName
-                + "&email=" +strEmail2
-                +"&account="+strAccount2+"&password="+strPass2+"&phone="+strPhone;
-     SharedPreferences pref=MainActivity.this.getSharedPreferences("data",MODE_PRIVATE);
-     SharedPreferences.Editor editor=pref.edit();
-     editor.putString("account",strAccount2);
-     editor.putString("password",strPass2);
-     editor.commit();
-     account.setText(strAccount2);
-     pass.setText(strPass2);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {//jsonObject为请求返回的Json格式数据
-                        try {
-                            Snackbar.make(relativeLayout, "注册成功！", Snackbar.LENGTH_SHORT).show();
-                            if (jsonObject.get("messag").toString().equals("yes")) {
+            }
 
-                            }else{
-                                Snackbar.make(relativeLayout, "注册失败！", Snackbar.LENGTH_SHORT).show();
-                            }
+            @Override
+            public void onAnimationEnd(Animator animator) {
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
+                Intent intent=new Intent(MainActivity.this,MenuActivity.class);
+                startActivity(intent);
 
-                    }
-                });
+            }
 
-        //设置请求的Tag标签，可以在全局请求队列中通过Tag标签进行请求的查找
-        request.setTag("testGet");
-        //将请求加入全局队列中
-        MyApplication.getInstance().addToRequestQueue(request);
+            @Override
+            public void onAnimationCancel(Animator animator) {
+                animator3.end();
+            }
 
-    }
+            @Override
+            public void onAnimationRepeat(Animator animator) {
 
-    private void Get__Login() {
-        String url = "http//47.94.247.145/endangeranimal/user_login.php" + strAccount
-                + "&code=" +strPass;
-
-        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {//jsonObject为请求返回的Json格式数据
-                        try {
-                            if (jsonObject.get("messag").toString().equals("yes")) {
-                                Snackbar.make(relativeLayout, "注册成功！", Snackbar.LENGTH_SHORT).show();
-                            }else{
-                                Snackbar.make(relativeLayout, "注册失败！", Snackbar.LENGTH_SHORT).show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-
-                    }
-                });
-
-        //设置请求的Tag标签，可以在全局请求队列中通过Tag标签进行请求的查找
-        request1.setTag("testGet");
-        //将请求加入全局队列中
-        MyApplication.getInstance().addToRequestQueue(request1);
+            }
+        });
 
     }
 
-    private int inDp(int dp) {
+    private int login() throws IOException
+    {
+        int returnResult=0;
+        String str_edit_name=mEdit_name.getText().toString();
+        String str_edit_psd=mEdit_psd.getText().toString();
 
-        Resources resources = getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        int px = (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
+        URL url = new URL("http://211.87.225.204:80/login.php");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        String params = "uid="+str_edit_name+'&'+"pwd="+str_edit_psd;
+        http.setDoOutput(true);
+        http.setRequestMethod("POST");
+        OutputStream out =http.getOutputStream();
+        out.write(params.getBytes());
+        out.flush();
+        out.close();
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));
+        String line = "";
+        StringBuilder sb = new StringBuilder();
+        while (null!=(line=bufferedReader.readLine())){
+            sb.append(line);
+        }
+        String result = sb.toString();
+
+        try {
+            JSONObject jsonObject=new JSONObject(result);
+            returnResult=jsonObject.getInt("status");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            // TODO: handle exception
+        }
+        return returnResult;
     }
-
-
 }
